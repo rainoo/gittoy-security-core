@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.gittoy.security.core.properties.SecurityProperties;
+import com.gittoy.security.core.validate.code.sms.DefaultSmsCodeSender;
+import com.gittoy.security.core.validate.code.sms.SmsCodeSender;
 
 /**
  * ValidateCodeConfig.java
@@ -13,7 +15,7 @@ import com.gittoy.security.core.properties.SecurityProperties;
  * @author GaoYu 2017年10月29日 下午5:54:32
  */
 @Configuration
-public class ValidateCodeConfig {
+public class ValidateCodeBeanConfig {
 
 	@Autowired
 	private SecurityProperties securityProperties;
@@ -25,5 +27,12 @@ public class ValidateCodeConfig {
 		ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
 		codeGenerator.setSecurityProperties(securityProperties);
 		return codeGenerator;
+	}
+
+	@Bean
+	// 使用者可以在系统中注册一个名字为“smsCodeSender”的Bean来覆盖掉配置。
+	@ConditionalOnMissingBean(SmsCodeSender.class)
+	public SmsCodeSender smsCodeSender() {
+		return new DefaultSmsCodeSender();
 	}
 }

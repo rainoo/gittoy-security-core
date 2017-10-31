@@ -1,35 +1,49 @@
 package com.gittoy.security.core.validate.code;
 
-import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 
 /**
- * ImageCode.java
+ * ValidateCode.java
  * 
  * @author GaoYu 2017年10月28日 下午10:15:59
  */
-public class ImageCode extends ValidateCode {
+public class ValidateCode {
 
-	private BufferedImage image;
+	private String code;
 
-	public ImageCode(BufferedImage image, String code, int expireIn) {
-		super(code, expireIn);
-		this.image = image;
+	private LocalDateTime expireTime;
+
+	public ValidateCode(String code, int expireIn) {
+		super();
+		this.code = code;
+		this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
 	}
 
-	public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {
-		super(code, expireTime);
-		this.image = image;
+	public ValidateCode(String code, LocalDateTime expireTime) {
+		super();
+		this.code = code;
+		this.expireTime = expireTime;
 	}
 
-	public BufferedImage getImage() {
-		return image;
+	public boolean isExpried() {
+		return LocalDateTime.now().isAfter(expireTime);
 	}
 
-	public void setImage(BufferedImage image) {
-		this.image = image;
+	public String getCode() {
+		return code;
 	}
 
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public LocalDateTime getExpireTime() {
+		return expireTime;
+	}
+
+	public void setExpireTime(LocalDateTime expireTime) {
+		this.expireTime = expireTime;
+	}
 }
 
 /** ===========================================================================

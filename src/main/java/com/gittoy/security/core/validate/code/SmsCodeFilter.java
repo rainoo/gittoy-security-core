@@ -26,7 +26,7 @@ import com.gittoy.security.core.properties.SecurityProperties;
  * 
  * @author GaoYu 2017年10月28日 下午11:24:09
  */
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
 	/**
 	 * 验证码校验失败处理器
 	 */
